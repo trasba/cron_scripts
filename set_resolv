@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Define the line to be added
+LINE="nameserver 8.8.8.8 # created by cron"
+FILE="/etc/resolv.conf"
+
+# Check if the line already exists in the file
+if grep -Fxq "$LINE" "$FILE"; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Line already exists in $FILE"
+else
+    # Add the line to the second last line of the file
+    sed -i '$i'"$LINE" "$FILE"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Line added to $FILE"
+fi
